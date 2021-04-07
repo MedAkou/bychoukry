@@ -1,0 +1,12 @@
+[26-Dec-2020 13:59:37 Africa/Casablanca] PHP Notice:  Undefined index: logo in /home/shopxylx/public_html/app/Controllers/SettingsController.php on line 101
+[26-Dec-2020 13:59:37 Africa/Casablanca] PHP Notice:  Undefined index: banner_footer in /home/shopxylx/public_html/app/Controllers/SettingsController.php on line 111
+[26-Dec-2020 16:39:21 Africa/Casablanca] PHP Notice:  Undefined index: city in /home/shopxylx/public_html/app/Controllers/DataController.php on line 85
+[08-Jan-2021 11:19:58 Africa/Casablanca] PHP Notice:  Undefined index: show_home in /home/shopxylx/public_html/app/Controllers/ProductsController.php on line 110
+[08-Jan-2021 11:31:21 Africa/Casablanca] PHP Notice:  Trying to get property 'category' of non-object in /home/shopxylx/public_html/app/Controllers/WebController.php on line 70
+[08-Jan-2021 11:31:21 Africa/Casablanca] PHP Notice:  Trying to get property 'name' of non-object in /home/shopxylx/public_html/app/Controllers/WebController.php on line 70
+[11-Jan-2021 06:18:23 Africa/Casablanca] PHP Notice:  Trying to get property 'category' of non-object in /home/shopxylx/public_html/app/Controllers/WebController.php on line 70
+[11-Jan-2021 06:18:23 Africa/Casablanca] PHP Notice:  Trying to get property 'name' of non-object in /home/shopxylx/public_html/app/Controllers/WebController.php on line 70
+[11-Jan-2021 08:19:02 Africa/Casablanca] PHP Notice:  Trying to get property 'category' of non-object in /home/shopxylx/public_html/app/Controllers/WebController.php on line 70
+[11-Jan-2021 08:19:02 Africa/Casablanca] PHP Notice:  Trying to get property 'name' of non-object in /home/shopxylx/public_html/app/Controllers/WebController.php on line 70
+[14-Jan-2021 02:35:57 Africa/Casablanca] PHP Notice:  Trying to get property 'category' of non-object in /home/shopxylx/public_html/app/Controllers/WebController.php on line 70
+[14-Jan-2021 02:35:57 Africa/Casablanca] PHP Notice:  Trying to get property 'name' of non-object in /home/shopxylx/public_html/app/Controllers/WebController.php on line 70

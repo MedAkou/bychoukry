@@ -1,0 +1,106 @@
+<!-- App header -->
+<div class="header-wrapper" >
+   <div class="header-container">
+      <nav class="topbar">
+         <div class="container">
+            <p> {{ options.tagline }} 
+               <span dir='ltr' style='letter-spacing: 1px;'> {{ options.phone }}</span> 
+            </p>
+         </div>
+      </nav>
+      <header class="app-header search-active">
+         <div class="main-bar desktop-bar" style="background-color: #ffffff;border-bottom: 1px solid #00000000;height: 100px;">
+            <div class="container">
+               <div class="header-left" >
+                  <div class="header-element">
+                     <a id="search-icon" type="submit" class="search-submit"><i class="fa fa-search"></i></a>
+                  </div>
+                  <div class="header-element">
+                     <span id="products_quantity">{{ products_quantity }}</span>
+                     <a href="{{ path_for('cart') }}" id="search-icon" type="submit" class="search-submit"><i class="fas fa-shopping-cart"></i></a>
+                  </div>
+               </div>
+               <div class="header-center">
+                  <div class="header-element">
+                     <ul class="list-unstyled header-list">
+                        <li>
+                           <a href="/" style="color:#000000">
+                           الرئيسية
+                           </a>
+                        </li>
+                        {% for item in ALLCATEGORIES %}
+                        <li>
+                           <a href="/categories/{{item.slug}}" >
+                           {{item.name}}
+                           </a>
+                        </li>
+                        {% endfor %}
+                     </ul>
+                  </div>
+               </div>
+               <div class="header-right">
+                  <div class="header-element">
+                     <a class="header-brand" href="/">
+                     <img src="/uploads/media/{{ options.logo }}" alt=""/>
+                     </a>
+                  </div>
+                  <div class="header-element">
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="main-bar mobile-bar" style="background-color: #ffffff;border-bottom: 1px solid #f0f0f0;">
+            <div class="container">
+               <div class="header-left">
+                  <div class="header-element">
+                     <a href="/">
+                     Acceuil
+                     </a>
+                  </div>
+                  <div class="header-element">
+                     <a class="header-brand" href="/">
+                     </a>
+                  </div>
+               </div>
+               <div class="header-right">
+                  <div class="header-element">
+                  </div>
+                  <div class="header-element">
+                     <a href="javascript:;" id="menuopen">
+                     Menu 
+                     <i class="fas fa-bars"></i>
+                     </a>
+                  </div>
+                  <div class="header-element">
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="overlay" ></div>
+         <nav class="side-navigation" style="display: none;">
+            <a href="javascript:;" id="menuclose">
+            <i class="far fa-times-circle"></i>
+            </a>
+            <ul class="list-unstyled navigation-list">
+               <li>
+                  <a href="/" style="color:#000000">
+                  Acceuil
+                  </a>
+               </li>
+               {% for item in ALLCATEGORIES %}
+               <li>
+                  <a href="/categories/{{item.name}}" >
+                  {{item.name}}
+                  </a>
+               </li>
+               {% endfor %}
+            </ul>
+         </nav>
+      </header>
+   </div>
+</div>
+<form method="GET" action="" class="search-form" style="display:none">
+   <div class="container">
+      <div class="search-input"> <input type="search" placeholder="البحث عن منتج" required="required" name="q" value=""> <button type="submit" class="search-submit"><i class="fa fa-search"></i></button></div>
+   </div>
+</form>

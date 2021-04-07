@@ -1,0 +1,20 @@
+    
+<div class="cmd_wrapper" style='display:none;'>
+    <a href="javascript:;" id='close_cmd'><i class="far fa-times-circle"></i></a>
+    <input type="hidden" id='laterDate' value="{{laterDate}}" />
+    <form action="#" method="post" id="savecommand">
+          <h1>أدخل معلومات الطلب</h1>
+          <div class="alert" id='phoneAlert' style='display: none;'>المرجوا ادخال رقم هاتف صحيح</div>
+          <label><input type="text" name="fullname" placeholder="الاسم الكامل"></label>
+          <label><input type="text" name="phone" placeholder="الهاتف"></label>
+          <label><input type="text" name="city" placeholder="المدينة"></label>
+          <label><input type="text" name="address" placeholder="العنوان"></label>
+          <label id='product_color' style='display:none;'><input type="text" name="color" placeholder="اللون"></label>
+          <label id='product_size'  style='display:none;'><input type="text" name="size" placeholder="الحجم"></label>
+          <input type="hidden" name="idproducts">
+          <input type="hidden" name="price" value=""  />
+          <input type="hidden" name="quantity" value=""   />
+          <input type="submit" class="btn btn-block btn-submit" value="اتمام الطلب" />
+          <div class="message_alert"></div>
+       </form>
+</div>

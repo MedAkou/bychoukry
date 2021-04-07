@@ -1,0 +1,208 @@
+{% extends "front/layout.twig" %}
+{% block content %}      
+<main class="page-wrapper">
+   <section  class="owl-carousel owl-carousel2">
+      {% for item in sliders %}
+      <div class="slide ">
+         <img class="" src="{{url.sliders}}{{item.image}}" alt="slider-image" />
+      </div>
+      {% endfor %}
+   </section>
+ 
+
+
+
+
+   <section class="section categories-list-section">
+      <div class="container">
+         <div class="app-heading">
+            <h3 class="heading-primary">اهم التصنيفات</h3>
+            <p class="heading-description">يمكنك الآن رؤية اهم التصنيفات لدينا</p>
+         </div>
+         <div class="categories-style-1 owl-carousel">
+         {%  for ProductCategory in ProductCategories %}
+            <div class="category-item">
+               <a href="/categories/{{ ProductCategory.slug }}" class="category-thumbnail">
+                  <img src="/uploads/categories/{{ProductCategory.image}}">
+               </a> 
+               <h3 class="category-details">
+                  <a href="{{ ProductCategory.slug }}" class="category-title">
+                  {{ ProductCategory.name }}
+                  </a>
+               </h3>
+            </div>
+         {% endfor %}
+         </div>
+      </div>
+   </section>
+
+
+
+   {% if options.show_home_video == 'on' %}
+   <section class="section video-section">
+      <div class="container video-center">
+         <div class="app-heading">
+            <h3 class="heading-primary">    {{options.home_video_h1}}  </h3>
+            <p class="heading-description"> {{options.home_video_h3}}  </p>
+         </div>
+         
+         {{ options.home_video_link|video_framer|raw }}
+
+      </div>
+   </section>
+   {% endif %}
+
+
+
+
+   <style type="text/css">
+   .products-grid {
+       margin-bottom: 55px;
+   }
+   </style>
+
+
+   <section class="section products-list-section section-I7upaLbva51pYIX2">
+      <div class="container">
+         <div class="app-heading">
+            <h3 class="heading-primary">آخر المنتجات  </h3>
+            <p class="heading-description"> آخر المنتوجات المميزة لأسفار </p>
+         </div>
+         
+
+            {% set iss = 1 %}
+            {% for row in products|batch(4, 'No item') %}
+
+                  {% if iss > 2 %} <div class="container"> {% endif %}
+
+            <div class="products-grid">
+                     
+            {% for product in row %}
+            <div class="product-item">
+            <a class="product-thumbnail" href="{{ path_for('website.product',{ id : product.id}) }}">
+            <img src="{{ url.products }}{{product.thumbnail}}">
+            </a>
+            <div class="product-details">
+               <div class="product-info">
+                  <h3 class="product-title">
+                     <a href="{{ path_for('website.product',{ id : product.id}) }}">{{ product.name }}</a>
+                  </h3>
+                  <div class="product-price">
+                     <span class="currency-value before">
+                     <span class="value">{{ product.price }}</span><span class="currency">&nbsp;د.م.‏</span>
+                     </span>
+                     <span class="currency-value after">
+                     <span class="value">{{ product.discount }}</span><span class="currency">&nbsp;د.م.‏</span>
+                     </span>
+                  </div>
+               </div>
+               <div class="product-actions">
+                  <a class="button small-button secondary-button" 
+                  href="{{ path_for('website.product',{ id : product.id}) }}">
+                  أطلب الآن
+                  </a>
+               </div>
+            </div>
+            </div>
+           {% endfor %}
+             </div>
+                               {% if iss > 2 %} </div> {% endif %}
+
+
+
+
+                {% if iss == 2 %} 
+ <div class="single-product">
+         <div class="container">
+            <div class="product-wrapper">
+               <div class="product-preview">
+                  <div class="product-section preview-wrapper">
+                     <!----> 
+                     <div class="thumbnail">
+                        <div class="preview" style="position: relative; overflow: hidden;"><img src="{{ url.products }}{{pinnedproducts.thumbnail}}" ></div>
+                        <ul class="list-preview owl-carousel">
+                           {% for item in pinnedproducts.galleryimages %}
+                           <li class="thumbnail-item" >
+                              <img src="{{url.products}}{{item}}" />
+                           </li>
+                           {% endfor %}
+                        </ul>
+                     </div>
+                  </div>
+               </div>
+               <div class="product-details">
+                  <div class="product-section">
+                     <h1 class="single-title">{{ pinnedproducts.name }}</h1>
+                  </div>
+                  <div class="product-section price-section">
+                     <h3 class="single-price"><span class="after currency-value"><span class="value">{{ pinnedproducts.discount }}</span><span class="currency">درهم</span></span> <span class="before currency-value"><span class="value">{{ pinnedproducts.price }}</span><span class="currency">درهم</span></span></h3>
+                  </div>
+                  <div class="quantity_area">
+                     <label class='quantity_label'>الكمية</label>
+                     <select name="type" id="type">
+                        <option value="{{pinnedproducts.discount}}"  data-quantity='1'>
+                           أطلب 1 ب 
+                           {{pinnedproducts.discount}}
+                           (التوصيل مجاني)
+                        </option>
+                        <option value="{{pinnedproducts.price_2}}"  data-quantity='2'>
+                           أطلب 2 ب 
+                           {{pinnedproducts.price_2}}
+                           (التوصيل مجاني)
+                        </option>
+                     </select>
+                  </div>
+                  <!---->
+                  <div class="product-section countdown-section">
+                     <div class="single-progress"><span style="width: 98.7176%;"></span></div>
+                     <div class="single-countdown">
+                        <div class="duration"><span id="days"  class="value">00</span> <span>يوم</span></div>
+                        <div class="duration"><span id="hours" class="value">05</span> <span>ساعة</span></div>
+                        <div class="duration"><span id="minutes" class="value">55</span> <span>دقيقة</span></div>
+                        <div class="duration"><span id="seconds" class="value">23</span> <span>ثانية</span></div>
+                     </div>
+                  </div>
+                  <div class="product-section add-to-cart-section">
+                     <button type="button" data-size="{{pinnedproducts.size}}" data-color="{{pinnedproducts.color}}"  data-product="{{pinnedproducts.id}}" class="button single-submit">
+                     أطلب الآن
+                     </button>
+                  </div>
+                  <div class="product-section description-section">
+                     <div class="single-description fr-view">
+                        <h3 style="box-sizing: border-box; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-style: initial; text-decoration-color: initial; margin-top: 0px; margin-bottom: 24px; font-size: 24px; line-height: 31px; font-weight: bold; color: rgb(20, 20, 20); font-family: &quot;Basic Commercial&quot;, sans-serif; background-color: rgb(255, 255, 255); text-align: center;">
+                           {{ pinnedproducts.description|raw }}
+                        </h3>
+                     </div>
+                     <!---->
+                  </div>
+               </div>
+            </div>
+         </div>
+         <!----> <!---->
+      </div>
+            </div>
+          
+           {% endif %}
+
+
+
+           {% set iss = iss + 1 %}
+
+           {% endfor %}
+
+
+
+
+
+         </div>
+      </div>
+   </section>
+   {% if options.footer_img == 'on' %}
+   <section class="slider-container horizontal medium">
+      <div class="slide slide-overlay"> <img src="/uploads/media/{{options.banner_footer}}"  class="desktop-image"> <span class="slider-caption">
+      </div>
+   </section>
+   {% endif %} 
+</main>
+<!-- App footer -->
+{% endblock %}

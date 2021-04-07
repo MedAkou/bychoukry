@@ -1,0 +1,321 @@
+ {% spaceless %}{% endspaceless %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title> لوحة التحكم</title>
+    <meta charset="utf-8">
+    <meta charset="adminlink" content="{{url.base}}admin">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="لوحة التحكم">
+    <link rel="icon" type="image/x-icon" href="{{assets}}admin/images/favicon.png" /> 
+    <link rel="stylesheet" type="text/css" href="{{assets}}admin/css/rtl.css?v={{config.version}}" />
+
+    <style type="text/css">
+    .sidebar.sidebar-main {
+    background: #fff;
+    -webkit-box-shadow: 0px 8px 14.72px 1.28px rgba(4, 5, 6, 0.2) ;
+    box-shadow: 0px 8px 14.72px 1.28px rgba(4, 5, 6, 0.2);
+}
+
+.sidebar.sidebar-main a {
+    color: #352b60;
+    border-bottom: 1px solid #00000008;
+}
+
+.navbar.navbar-inverse {
+    background: whitesmoke;
+    position: fixed;
+    display: none;
+}
+
+.navbar.navbar-inverse a {
+    color:transparent; 
+}
+</style>
+ </head>
+
+ 
+<body dir="rtl"  class='{% if admin %} admin-logged {% endif %}' >
+
+  {% include "admin/elements/navbar.twig" %}
+
+
+<div class="modal"  id="editListModal"  tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">تعديل الطلب</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      </div>
+    
+    </div>
+  </div>
+</div>
+
+
+<div class="modal"  id="addneworder"  tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">إضافة طلب جديد</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="{{path_for('admin.create')}}" method='POST'>
+
+
+          <div class="form-group row">
+            <label for="name" class="col-4 col-form-label">الإسم</label> 
+            <div class="col-8">
+              <input id="name" name="name" type="text" class="form-control"  required="required">
+            </div>
+          </div>
+
+
+          <div class="form-group row">
+            <label for="phone" class="col-4 col-form-label">رقم الهاتف</label> 
+            <div class="col-8">
+              <input id="tel" name="tel" placeholder="رقم الهاتف" type="text" class="form-control" required="required"   >
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="name" class="col-4 col-form-label">العنوان</label> 
+            <div class="col-8">
+              <input id="adress" name="adress" type="text" class="form-control" required="required">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="name" class="col-4 col-form-label">المدينة</label> 
+            <div class="col-8">
+              <input id="city" name="city" type="text" class="form-control" required="required">
+            </div>
+          </div>
+
+
+
+          <div class="form-group row">
+            <label for="product" class="col-4 col-form-label">المنتوج</label> 
+            <div class="col-8">
+              <select id="productSELECT" name="product" data-result='{{list.productID}}' name="productID" class="form-control">
+                {% for product in ALLPRODUCTS %}
+                <option value="{{product.id}}">{{product.name}}</option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="quantity" class="col-4 col-form-label">الكمية</label> 
+            <div class="col-8">
+              <input id="quantity" name="quantity" placeholder="الكمية" type="text" class="form-control" required="required"  >
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="price" class="col-4 col-form-label">الثمن</label> 
+            <div class="col-8">
+              <input id="price" name="price" placeholder="الثمن" type="text" class="form-control" >
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="color" class="col-4 col-form-label">اللون</label> 
+            <div class="col-8">
+              <input id="color" name="color" placeholder="اللون" type="text" class="form-control" >
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="text1" class="col-4 col-form-label">المقاس</label> 
+            <div class="col-8">
+              <input id="text1" name="size" placeholder="المقاس" type="text" class="form-control" >
+            </div>
+          </div> 
+          <div class="form-group row">
+            <div class="offset-4 col-8">
+              <button name="submit" type="submit" class="btn btn-block btn-primary">حفظ المعلومات</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+	<!-- Page container -->
+	<div class="page-container">
+
+		<!-- Page content -->
+		<div class="page-content">
+       
+        <!-- sidbar -->
+        {% include "admin/elements/sidebar.twig" %} 	
+
+        
+        
+        {% block content %} {% endblock %}
+        
+		</div>
+	  </div>
+
+    <!-- JS script -->
+    <script type="text/javascript" src="{{assets}}admin/js/all.js?v={{config.version}}"></script> 
+    <script type="text/javascript" src="{{assets}}admin/js/clipboard.min.js?v={{config.version}}"></script>
+    <script type="text/javascript" src="{{assets}}admin/js/bawaba.js?v={{config.version}}"></script>
+    <script src="{{assets}}/admin/ckeditor/ckeditor.js?v={{config.version}}"></script>
+
+   
+   
+   
+    <form method='post' action="/admin/export/excel" id='exportThem' >
+      <input type="hidden" name='is' class='ids'>
+    </form>
+
+   
+   
+   
+   
+    <input type="hidden" id="selectedRows" />
+
+    <script>
+    
+    
+   $('body #exportliaData').click(function(){
+        var selected = $('#selectedRows').val();
+        $('body #exportThem  .ids').val(selected);
+        $('body #exportThem').submit();
+    });
+    
+    
+    $('body .delte_tkf').click(function(){
+            var id = $(this).attr('data-id');
+
+           jQuery.ajax({
+                url: '/admin/remove/item',
+                type : 'post',
+                data: {'id':id},
+                dataType: "html",
+                success: function( response ) {
+                    $('#row_cmd_'+id).remove();
+                },
+               
+          });
+    
+    });
+    
+    
+        
+    $('body .addneworder').click(function(){
+            $('#addneworder').modal('show');    
+    });
+
+
+    $('body .edit_airf').click(function(){
+            var id = $(this).attr('data-id');
+
+           jQuery.ajax({
+                url: '/admin/load/list',
+                type : 'post',
+                data: {'id':id},
+                dataType: "html",
+                success: function( response ) {
+                    
+                    $('#editListModal .modal-body').html(response);
+                    $('#editListModal').modal('show');
+                    var product = $('#editListModal #productSELECT').attr('data-result');
+                    $('#editListModal #productSELECT').val(product);
+                    
+                    
+                    
+                    console.log(response); 
+                    //$('#row_cmd_'+id).remove();
+                },
+               
+          });
+    
+    });
+    
+    
+    
+    
+    
+    
+    
+    $('body .change_statue').change(function(){
+            var id = $(this).attr('data-id');
+            var statue = $(this).val();
+            
+           jQuery.ajax({
+                url: '/admin/change/statue',
+                type : 'post',
+                data: {'id':id, 'statue':statue},
+                dataType: "html",
+                success: function( response ) {
+                   location.reload(); 
+                },
+               
+          });
+    
+    });
+    
+
+
+    
+    
+    
+    
+    
+    if($('#posteditor').length){ 
+      CKEDITOR.replace( 'posteditor', { 
+       language: 'ar'  , 
+        height: 400,
+      });
+      
+    
+      
+    }
+
+    if($('.editcategory').length){
+      var select = $('.editcategory').attr('data-value');
+      $('.editcategory').val(select);
+    }
+    
+    
+    
+    
+    
+function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $('#profile_avatar').attr('src', e.target.result);
+        }
+
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+$('body #ProductThumbnail').change(function(){
+  readURL(this);
+});
+
+    
+
+    </script>   
+</body>
+</html>
+
+                  

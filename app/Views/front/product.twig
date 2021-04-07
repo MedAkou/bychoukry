@@ -1,0 +1,104 @@
+{% extends "front/layout.twig" %}
+{% block bodyClass %}
+class='product-single'
+{% endblock %}
+{% block content %}
+<div class="breadcrumb" style="margin-bottom: 74px;">
+   <div class="container">
+      <ul class="list-unstyled breadcrumb-list">
+         <a href="/"><i class="fa fa-home" aria-hidden="true"></i>
+         </a> 
+         <li><span style="padding-right:10px;">{{product.name}}</span></li>
+      </ul>
+   </div>
+</div>
+<div id="app">
+<main class="page-wrapper">
+   <div class="single-product">
+      <div class="single-product">
+         <div class="container">
+            <div class="product-wrapper">
+               <div class="product-preview">
+                  <div class="product-section preview-wrapper">
+                     <!----> 
+                     <div class="product-slider product-slider-desktop">
+                        <div class="preview">
+                           <img src="{{url.products}}{{product.thumbnail}}" >
+                        </div>
+                        <style>
+                            .owl-carousel .owl-nav button.owl-next, .owl-carousel .owl-nav button.owl-prev {
+    padding: 5px 15px !important;
+    display: inline-block;
+    color: white;
+    float: left;
+}
+                        </style>
+                        <ul class="list-preview owl-carousel">
+                           <li class="thumbnail-item" >
+                              <img src="{{url.products}}{{product.thumbnail}}" />
+                           </li>
+                           {% for item in product.galleryimages %}
+                           <li class="thumbnail-item" >
+                              <img src="{{url.products}}{{item}}" />
+                           </li>
+                           {% endfor %}
+                        </ul>
+                     </div>
+                  </div>
+               </div>
+               <div class="product-details">
+                  <div class="product-section">
+                     <h1 class="single-title"> {{ product.name }}  </h1>
+                  </div>
+                  <div class="product-section price-section">
+                     <h3 class="single-price"><span class="after currency-value"><span class="value"> {{ product.discount }} </span><span class="currency">&nbsp;د.م.‏</span></span> 
+                        <span class="before currency-value"><span class="value"> {{ product.price }} </span><span class="currency">&nbsp;د.م.‏</span></span>
+                     </h3>
+                     <div class="quantity_area">
+                        <label class='quantity_label'>الكمية</label>
+                        <select name="type" id="type">
+                           <option value="{{product.discount}}"  data-quantity='1'>
+                              أطلب 1 ب 
+                              {{product.discount}}
+                              (التوصيل مجاني)
+                           </option>
+                           <option value="{{product.price_2}}"  data-quantity='2'>
+                              أطلب 2 ب 
+                              {{product.price_2}}
+                              (التوصيل مجاني)
+                           </option>
+                        </select>
+                     </div>
+                  </div>
+                  <div class="product-section add-to-cart-section">
+                     <button type="button" id="add-to-cart" data-size="{{product.size}}" data-color="{{product.color}}" data-price="{{product.price}}" data-product="{{product.id}}" class="button">
+                     أطلب الآن
+                     </button>
+                  </div>
+                  <div class="product-section single-hurry-section">
+                     <p class="single-hurry">سارع! فقط 9  قطعة متبقية في المخزن!</p>
+                  </div>
+                  <div class="product-section single-visitors">
+                     <p>يشاهده <b>73</b> متصفح في الوقت الحالي.</p>
+                  </div>
+                  <div class="product-section countdown-section">
+                     <div class="single-progress"><span style="width: 98.7176%;"></span></div>
+                     <div class="single-countdown">
+                        <div class="duration"><span id="days"  class="value">00</span> <span>يوم</span></div>
+                        <div class="duration"><span id="hours" class="value">05</span> <span>ساعة</span></div>
+                        <div class="duration"><span id="minutes" class="value">55</span> <span>دقيقة</span></div>
+                        <div class="duration"><span id="seconds" class="value">23</span> <span>ثانية</span></div>
+                     </div>
+                  </div>
+                  <div class="product-section description-section">
+                     <div class="single-description fr-view">
+                        {{ product.description|raw }}
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</main>
+{% endblock %}

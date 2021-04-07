@@ -1,0 +1,81 @@
+<form action="{{path_for('admin.update')}}" method='POST'>
+  
+  <input id="id" name="id" type="hidden" value='{{list.id}}'>
+
+
+  <div class="form-group row">
+    <label for="name" class="col-4 col-form-label">الإسم</label> 
+    <div class="col-8">
+      <input id="name" name="name" type="text" class="form-control" value='{{list.name}}' required="required">
+    </div>
+  </div>
+
+
+  <div class="form-group row">
+    <label for="phone" class="col-4 col-form-label">رقم الهاتف</label> 
+    <div class="col-8">
+      <input id="tel" name="tel" placeholder="رقم الهاتف" type="text" class="form-control" required="required"  value='{{list.tel}}' >
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="name" class="col-4 col-form-label">العنوان</label> 
+    <div class="col-8">
+      <input id="adress" name="adress" type="text" class="form-control" value='{{list.adress}}' required="required">
+    </div>
+  </div>
+
+
+
+  <div class="form-group row">
+    <label for="product" class="col-4 col-form-label">المنتوج</label> 
+    <div class="col-8">
+      <select id="productSELECT" name="product" data-result='{{list.productID}}' name="productID" class="form-control">
+        {% for product in ALLPRODUCTS %}
+        <option value="{{product.id}}">{{product.name}}</option>
+        {% endfor %}
+      </select>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="quantity" class="col-4 col-form-label">الكمية</label> 
+    <div class="col-8">
+      <input id="quantity" name="quantity" placeholder="الكمية" type="text" class="form-control" required="required"  value='{{list.quantity}}'>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="price" class="col-4 col-form-label">الثمن</label> 
+    <div class="col-8">
+      <input id="price" name="price" placeholder="الثمن" type="text" class="form-control" value='{{list.price}}'>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="color" class="col-4 col-form-label">اللون</label> 
+    <div class="col-8">
+      <input id="color" name="color" placeholder="اللون" type="text" class="form-control" value='{{list.color}}'>
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="text1" class="col-4 col-form-label">المقاس</label> 
+    <div class="col-8">
+      <input id="text1" name="size" placeholder="المقاس" type="text" class="form-control" value='{{list.size}}'>
+    </div>
+  </div> 
+
+ <div class="form-group row">
+    <label for="text1" class="col-4 col-form-label"> الشحن   </label> 
+    <div class="col-8">
+      <input id="text1" name="cityID" placeholder="الشحن" type="text" class="form-control" value='{{list.cityID}}'>
+    </div>
+  </div> 
+
+
+
+  
+
+  <div class="form-group row">
+    <div class="offset-4 col-8">
+      <button name="submit" type="submit" class="btn btn-block btn-primary">حفظ المعلومات</button>
+    </div>
+  </div>
+</form>

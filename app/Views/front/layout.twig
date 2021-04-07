@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar_SA" data-type='okay_now'>
+
+  <head>
+      {{options.pixel|raw}}
+      {{options.stats|raw}}
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1"/>
+      <meta name="theme-color" content="#FFF"/>
+      <meta name="msapplication-navbutton-color" content="#FFF"/>
+      <meta name="apple-mobile-web-app-capable" content="yes"/>
+      <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+      <meta name="format-detection" content="telephone=no"/>
+      <title> {{ options.name }} </title>
+      <meta property="og:title" content="{{ options.name }}" />
+      <meta property="og:image" content="/uploads/media/{{ options.logo }}" />
+      <link rel="icon" type="image/png" href=""/>
+      <link href="/assets/front/css/style.css?v=44422" rel="stylesheet">
+      <link href="/assets/front/css/custom.css?v=1.03211321" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300&display=swap" rel="stylesheet">
+      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" >
+      <link href="/assets/front/style.css" rel="stylesheet" />
+      <link href="/assets/front/owl.carousel.min.css" rel="stylesheet" />
+      
+      
+      <style>
+          .lx-contact-us-content ul li a i {
+    top: 0px !important;
+    position: relative;
+}
+
+nav.topbar, button.button.single-submit, .section-I7upaLbva51pYIX2 .product-item .product-actions .button, .product-section.single-visitors b, .owl-nav button, .categories-list-section .owl-carousel .owl-nav button.owl-next, .categories-list-section .owl-carousel .owl-nav button.owl-prev, input.btn.btn-block.btn-submit, .owl-carousel .owl-nav button.owl-next, .owl-carousel .owl-nav button.owl-prev {
+    background: {{ options.color }} !important;
+}
+
+.section-I7upaLbva51pYIX2 .product-item .product-actions .button, .section-I7upaLbva51pYIX2 .product-item:hover, .section-I7upaLbva51pYIX2 .product-item:hover .product-details, .cmd_wrapper input, .section-I7upaLbva51pYIX2 .product-item:hover .product-details{
+    border-color: {{ options.color }} !important;
+}
+
+span.currency, span.value, .breadcrumb .breadcrumb-list span, .single-description.fr-view strong span, a#close_cmd{
+    color: {{ options.color }} !important;
+}
+
+      </style>
+  </head>
+  
+  
+  
+   
+   
+<body {% block bodyClass %}{% endblock %}>
+    
+
+      {{ include('front/elements/cmd_form.twig') }}
+
+
+      <div id="app">
+
+              {{ include('front/elements/header.twig') }}
+
+              {% block content %}
+
+              {% endblock %}
+
+              {{ include('front/elements/feautres.twig') }}
+
+              {{ include('front/elements/footer.twig') }}
+
+              {{ include('front/elements/whatsup.twig') }}
+
+
+    <script src="/assets/jquery.min.js"> </script>
+    <script src="/assets/main.min.js"> </script>
+    <script src="https://owlcarousel2.github.io/OwlCarousel2/assets/owlcarousel/owl.carousel.js"></script>
+    <script src="/assets/front/custom.js?qs"> </script>
+        <input type="hidden" id='laterDate' value="{{laterDate}}" />
+
+   </body>
+   
+</html>

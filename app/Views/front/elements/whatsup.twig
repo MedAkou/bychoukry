@@ -1,0 +1,31 @@
+{% if options.contact_icon == 'on' %}
+    <div class="lx-contact-us">
+    <a href="javascript:;"><i class="fa fa-phone"></i></a>
+    <div class="lx-contact-us-content" style="display: none;">
+    <ul>
+        
+    {% if options.phone_number is not empty %}
+    <li><a href="tel:{{options.phone_number}}" class="lx-color1"><i class="fa fa-phone"></i> {{options.phone_number}} </a></li>
+    {% endif %}
+
+    {% if options.whatsapp_number is not empty %}
+    <li><a href="https://wa.me/{{options.whatsapp_number}}" class="lx-color3"><i class="fab fa-whatsapp"></i> {{options.whatsapp_number}} </a></li>
+    {% endif %}
+
+    {% if options.messenger_link is not empty %}
+    <li><a href="{{options.messenger_link}}" target="_blank" class="lx-color4"><i class="fab fa-facebook-messenger"></i> Messenger </a></li>
+    {% endif %}
+
+    </ul>
+    </div>
+    </div>
+    {% endif %}
+
+
+    {% if options.whatsapp == 'on' %}
+    <div class="wa__btn_popup">
+        <a href="whatsapp://send?text=salam&phone={{options.whatsapp_number}}">
+            <div class="wa__btn_popup_icon"></div>
+        </a>
+    </div>
+    {% endif %} 

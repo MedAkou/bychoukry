@@ -1,0 +1,45 @@
+{% extends "front/layout.twig" %}
+{% block bodyClass %}
+class='product-single'
+{% endblock %}
+{% block content %}
+<div class="breadcrumb" style="margin-bottom: 74px;">
+   <div class="container">
+      <ul class="list-unstyled breadcrumb-list">
+         <a href="/"><i class="fa fa-home" aria-hidden="true"></i>
+         </a> 
+         <li><span style="padding-right:10px;">{{product.name}}</span></li>
+      </ul>
+   </div>
+</div>
+<div id="app">
+<main class="page-wrapper">
+   <div class="container">
+        <table class="cart-table">
+            <thead>
+                <th>المنتوج</th>
+                <th>القياس</th>
+                <th>اللون</th>
+                <th>الثمن</th>
+                <th></th>
+            </thead>
+            <tbody>
+                {% for index, product in products %}
+                    <tr id="row-{{index}}">
+                        <td>{{ prod_names[index] }}</td>
+                        <td>{{ sizes[index] != 0 ? sizes[index] : '----' }}</td>
+                        <td>{{ colors[index] != 0 ? colors[index] : '----' }}</td>
+                        <td>{{ prices[index] }} د.م.</td>
+                        <td><span class="remove-from-cart" data-product="{{ index }}">حذف</span></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="product-section add-to-cart-section" style="margin-top: 20px;">
+            <button type="button" data-sizes="{{data['sizes']}}" data-colors="{{data['colors']}}"  data-products="{{data['products']}}" class="button single-submit">
+            أطلب الآن
+            </button>
+        </div>
+   </div>
+</main>
+{% endblock %}
