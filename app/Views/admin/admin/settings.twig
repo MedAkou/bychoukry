@@ -102,14 +102,14 @@
                   </div>
                 </div>     
                 
-                <div class="form-group">
+                <div class="form-group hidden">
                   <label class="control-label col-lg-3"> رابط تويتر </label>
                   <div class="col-lg-9">
                     <input type="text" class="form-control" name="twitter_link" placeholder="رابط تويتر" value='{{options.twitter_link}}'/>
                   </div>
                 </div>     
                 
-                <div class="form-group">
+                <div class="form-group hidden">
                   <label class="control-label col-lg-3"> رابط اليوتوب </label>
                   <div class="col-lg-9">
                     <input type="text" class="form-control" name="youtube_link" placeholder="رابط اليوتوب" value='{{options.youtube_link}}'/>
@@ -142,7 +142,7 @@
 		
      
      
-<div class="col-md-12">
+<div class="col-md-12 hidden">
 <div class="panel panel-flat">
 
 <div class="panel-heading no-padding-bottom">
@@ -204,7 +204,7 @@
 		
 		
  
-<div class="col-md-12">
+<div class="col-md-12 hidden">
 <div class="panel panel-flat">
 
 <div class="panel-heading no-padding-bottom">
@@ -314,10 +314,30 @@
                         </div>
                         
                     </div>
-                    
-         
-         
+
                     <hr>
+
+                    <div class="form-group">
+                    <label class="control-label col-lg-3">    السلايدر العلوي  </label>
+                    <div class="col-lg-9">
+                        <div class="col-lg-3">
+                            <label for="banner_footer" class="btn btn-danger btn-rounded"><i class="icon-image2 position-left"></i>
+                            اختيار الصورة
+                            </label>
+                            <input name="banner_footer" id="banner_footer" accept="image/jpg, image/jpeg, image/png" style="visibility:hidden;" type="file">
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <label class="control-label col-lg-3"></label>
+                        <div class="setting-preview-img">
+                            {% if options.banner_footer is not empty %}
+                            <img width='200px' src='/uploads/media/{{ options.banner_footer }}' />
+                            {% endif %}
+                        </div>
+                    </div>
+                    </div>
+                    
+                             
                     <div class="form-group">
                         <label class="control-label col-lg-3">اسم الموقع</label>
                         <div class="col-lg-9">
@@ -359,7 +379,7 @@
                         <textarea class='form-control' name="stats" cols="30" rows="10">{{options.stats}}</textarea>
                         </div>
                     </div>    
-                    <div class="form-group">
+                    <div class="form-group hidden">
                         <label class="control-label col-lg-3"> Color </label>
                         <div class="col-lg-9">
                         <input type="color" id="color" name="color" value="{{options.color}}">
@@ -369,37 +389,13 @@
                  
                
              
-                  <div class="form-group">
+                  <div class="form-group hidden">
                     <label class="control-label col-lg-2"> تفعيل الصورة السفلية  </label>
                     <div class="col-lg-10">
                         <input type="checkbox" class="form-control" name="footer_img" {% if options.footer_img == 'on' %}checked="checked" {% endif %} >
                     </div>
                     </div>
-                    
-                    
-
-
-                                 <div class="form-group">
-                        <label class="control-label col-lg-3">  الصورة  السفلية  </label>
-                        <div class="col-lg-9">
-                            <div class="col-lg-3">
-                               <label for="banner_footer" class="btn btn-danger btn-rounded"><i class="icon-image2 position-left"></i>
-                                        اختيار الصورة
-                                </label>
-                               <input name="banner_footer" id="banner_footer" accept="image/jpg, image/jpeg, image/png" style="visibility:hidden;" type="file">
-                         
-                        </div>
-                        </div>
-                        <div class="col-md-12">
-                         <label class="control-label col-lg-3"></label>
-                         <div class="setting-preview-img">
-                            {% if options.banner_footer is not empty %}
-                            <img width='200px' src='/uploads/media/{{ options.banner_footer }}' />
-                            {% endif %}
-                        </div>
-                        </div>
-                        
-                    </div>
+                                    
                     
                  
             

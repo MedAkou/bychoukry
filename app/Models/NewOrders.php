@@ -43,6 +43,10 @@ class NewOrders extends model{
     public function realproduct(){
         return $this->belongsTo('\App\Models\Product','productID')->select('name');
     }
+
+    public function products_l7ram()    {
+        return $this->hasMany('App\Models\OrderDetails','order_id');
+    }
     
     
     

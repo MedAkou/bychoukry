@@ -1,88 +1,41 @@
-<div class="lx-footer">
-   <!-- Footer Bottom -->
-   <div class="lx-footer-bottom">
-      <div class="lx-footer-bottom-content">
-         <div class="col-md-4">
-            <div class="lx-copyright">
-               <p>© كل الحقوق محفوظة <a href="javascript:;" style="color: #fff;"></a> 2020.</p>
-            </div>
-         </div>
-         <div class="col-md-8 text-left">
-            <ul class="social_list_footer">
-               {% if options.twitter_link is not empty %}
-               <li><a href="{{options.twitter_link}}"><i class="fab fa-twitter"></i></a></li>
-               {% endif %}
-               {% if options.instagram_link is not empty %}
-               <li><a href="{{options.instagram_link}}"><i class="fab fa-instagram"></i></a></li>
-               {% endif %}
-               {% if options.youtube_link is not empty %}
-               <li><a href="{{options.youtube_link}}"><i class="fab fa-youtube"></i></a></li>
-               {% endif %}
-               {% if options.fb_link is not empty %}
-               <li><a href="{{options.fb_link}}"><i class="fab fa-facebook"></i></a></li>
-               {% endif %}
+<footer class="site-footer small--text-center" role="contentinfo">
+   <div class="wrapper">
+      <div class="grid-uniform">
+         <div class="grid__item post-large--one-third medium--one-third">
+            <h3 class="h4">Links</h3>
+            <ul class="site-footer__links">
+               <li><a href="/search">Search</a></li>
             </ul>
          </div>
-         <div class="lx-clear-fix"></div>
+         <div class="grid__item post-large--one-third medium--one-third">
+            <h3 class="h4">Restez en contact</h3>
+            <ul class="inline-list social-icons">
+               <li>
+                  <a class="icon-fallback-text" href="{{options.fb_link}}" title="ByChoukry sur Facebook">
+                  <span class="icon icon-facebook" aria-hidden="true"></span>
+                  <span class="fallback-text">Facebook</span>
+                  </a>
+               </li>
+               <li>
+                  <a class="icon-fallback-text" href="{{options.instagram_link}}" title="ByChoukry sur Instagram">
+                  <span class="icon icon-instagram" aria-hidden="true"></span>
+                  <span class="fallback-text">Instagram</span>
+                  </a>
+               </li>
+            </ul>
+         </div>
+         <div class="grid__item post-large--one-third medium--one-third">
+            <h3 class="h4">Contactez-nous</h3>
+            <div class="rte">
+               <p>{{ options.phone }}</p>
+            </div>
+         </div>
       </div>
-   </div>
-</div>
-<footer class="footer " style="background-color: #fefefe;color: #000000;border-top: 0px;padding-top: 80px;display:none;">
-   <div class="container">
-      <div class="footer-body">
-         <div class="is-grid grid-3">
-            <div class="footer-item">
-               <h3>معلومات مهمة</h3>
-               <ul class="list-unstyled footer-list">
-                  <li>
-                     <a href="pages/about-us.html" style="color: #000000;">
-                     نبذه عنا
-                     </a>
-                  </li>
-                  <li>
-                     <a href="pages/how-to-pay.html" style="color: #000000;">
-                     كيف يتم الدفع
-                     </a>
-                  </li>
-                  <li>
-                     <a href="pages/shipping-delivery.html" style="color: #000000;">
-                     الدفع و الإستلام
-                     </a>
-                  </li>
-               </ul>
-            </div>
-            <div class="footer-item">
-               <h3>خدمات</h3>
-               <ul class="list-unstyled footer-list">
-                  <li>
-                     <a href="pages/terms-and-conditions.html" style="color: #000000;">
-                     شروط الخدمة
-                     </a>
-                  </li>
-                  <li>
-                     <a href="pages/return-policy.html" style="color: #000000;">
-                     إسترداد أو إستبدال
-                     </a>
-                  </li>
-               </ul>
-            </div>
-            <div class="footer-item">
-               <h3>إتصل بنا</h3>
-               <ul class="list-unstyled footer-list">
-                  <li>
-                     <a href="pages/contact-us.html" style="color: #000000;">
-                     إتصل بنا
-                     </a>
-                  </li>
-                  <li>
-                     <a href="pages/faq.html" style="color: #000000;">
-                     FAQ
-                     </a>
-                  </li>
-               </ul>
-            </div>
+      <hr class="hr--small hr--clear">
+      <div class="grid">
+         <div class="grid__item text-center">
+            <p class="site-footer__links">Droit d&#39;auteur &copy; 2021, <a href="/" title="">ByChoukry</a>. </p>
          </div>
       </div>
    </div>
 </footer>
-</div>

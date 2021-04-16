@@ -1,0 +1,95 @@
+<div data-section-id="header" data-section-type="header-section">
+
+   <div class="header-bar">
+
+      <div class="wrapper medium-down--hide">
+         <div class="post-large--display-table">
+
+            <div class="header-bar__left post-large--display-table-cell">
+               <div class="header-bar__module header-bar__search">
+                  <form action="/search" method="get" class="header-bar__search-form clearfix" role="search">
+                     <button type="submit" class="btn btn--search icon-fallback-text header-bar__search-submit">
+                     <span class="icon icon-search" aria-hidden="true"></span>
+                     <span class="fallback-text">Recherche</span>
+                     </button>
+                     <input type="search" name="q" value="" aria-label="Rechercher" class="header-bar__search-input" placeholder="Rechercher">
+                  </form>
+               </div>
+            </div>
+
+            <div class="header-bar__right post-large--display-table-cell">
+               <div class="header-bar__module">
+                  <span class="header-bar__sep" aria-hidden="true"></span>
+                  <a href="{{ path_for('cart') }}" class="cart-page-link">
+                  <span class="icon icon-cart header-bar__cart-icon" aria-hidden="true"></span>
+                  </a>
+               </div>
+               <div class="header-bar__module">
+                  <a href="{{ path_for('cart') }}" class="cart-page-link">Panier<span class="cart-count header-bar__cart-count"> {{ count_cart }}</span></a>
+               </div>
+            </div>
+
+         </div>
+      </div>
+
+      <div class="wrapper post-large--hide announcement-bar--mobile"></div>
+      <div class="wrapper post-large--hide">
+         <button type="button" class="mobile-nav-trigger" id="MobileNavTrigger" aria-controls="MobileNav" aria-expanded="false">
+         <span class="icon icon-hamburger" aria-hidden="true"></span>Menu
+         </button>
+         <a href="{{ path_for('cart') }}" class="cart-page-link mobile-cart-page-link">
+         <span class="icon icon-cart header-bar__cart-icon" aria-hidden="true"></span>Panier <span class="cart-count"> {{ count_cart }}</span>
+         </a>
+      </div>
+
+      <nav role="navigation">
+         <ul id="MobileNav" class="mobile-nav post-large--hide">
+            <li class="mobile-nav__link">
+               <a href="/" class="mobile-nav">Home</a>
+            </li>
+            <li class="mobile-nav__link">
+               <a href="{{ path_for('website.collections') }}" class="mobile-nav"> Nos Parfums</a>
+            </li>
+            <li class="mobile-nav__link">
+               <div class="header-bar__module header-bar__search">
+                  <form action="/search" method="get" class="header-bar__search-form clearfix" role="search">
+                     <button type="submit" class="btn btn--search icon-fallback-text header-bar__search-submit">
+                     <span class="icon icon-search" aria-hidden="true"></span>
+                     <span class="fallback-text">Recherche</span>
+                     </button>
+                     <input type="search" required="required" name="q" value="" class="header-bar__search-input" placeholder="Rechercher">
+                  </form>
+               </div>
+            </li>
+         </ul>
+      </nav>
+   </div>
+
+   <header class="site-header" role="banner">
+      <div class="wrapper">
+         <div class="grid--full post-large--display-table">
+            <div class="grid__item post-large--one-third post-large--display-table-cell">
+               <h1 class="site-header__logo" >
+                  <div class="logo__image-wrapper supports-js">
+                     <a href="/" itemprop="url" style="padding-top:50.0%;">
+                     <img class="logo__image lazyload" src="/uploads/media/{{ options.logo }}" alt="ByChoukry">
+                     </a>
+                  </div>
+               </h1>
+            </div>
+            <div class="grid__item post-large--two-thirds post-large--display-table-cell medium-down--hide">
+               <nav>
+                  <ul class="site-nav" id="AccessibleNav">
+                     <li class="site-nav--active">
+                        <a href="/" class="site-nav__link" data-meganav-type="child" >Home</a>
+                     </li>
+                     <li>
+                        <a href="{{ path_for('website.collections') }}" class="site-nav__link" data-meganav-type="child" > Nos Parfums </a>
+                     </li>
+                  </ul>
+               </nav>
+            </div>
+         </div>
+      </div>
+   </header>
+</div>

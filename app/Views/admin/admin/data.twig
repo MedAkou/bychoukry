@@ -200,6 +200,14 @@ a.edit_airf {
     padding: 10px 20px;
 }
 
+hr.ster_l7ram {
+    margin: 15px 0;
+}
+
+hr.ster_l7ram:last-child {
+    display: none;
+}
+
 </style>
    
    
@@ -234,11 +242,12 @@ a.edit_airf {
                 <th><b>المنتوج</b></th>
                 <th><b>الكمية</b></th>
                 <th><b> الثمن</b></th>
-                <th><b> اللون</b></th>
-                <th><b> المقاس</b></th>
+                <th><b> المجموع الفرعي</b></th>
+                <th><b>  العلبة  </b></th>
+                <th><b> المجموع</b></th>
                 <th><b> الحالة</b></th>
                 <th><b> تغيير الحالة       </b></th>
-                <th><b>  الشحن  </b></th>
+                <th><b>  الشحن  </b></th>                
                 <th><b>  حذف       </b></th>
                 <th><b>  تعديل       </b></th>
 
@@ -259,11 +268,39 @@ a.edit_airf {
 
 
              </td>
-             <td>{{item.realproduct.name}}</td> 
-             <td>{{item.quantity}} </td>    
-             <td>{{item.price}} </td>
-             <td>{{ item.color }} </td>
-             <td>{{ item.size }} </td>
+             <td>
+               {% for products in item.products_l7ram %}
+                  {{ products.product['name'] }}
+                  <hr class="ster_l7ram">
+               {% endfor %}
+             </td>
+             <td>
+               {% for products in item.products_l7ram %}
+                  {{ products['quantity'] }}
+                  <hr class="ster_l7ram">
+               {% endfor %}
+             </td>
+             <td>
+               {% for products in item.products_l7ram %}
+                  Dh &nbsp {{ products.product['price'] }}
+                  <hr class="ster_l7ram">
+               {% endfor %}
+             </td>
+             <td>
+               {% set total = 0 %}
+               {% for products in item.products_l7ram %}
+                  Dh &nbsp {{ products['price'] }} 
+                  {% set total = total + products['price']  %}
+                  <hr class="ster_l7ram">
+               {% endfor %}
+             </td>
+            <td>
+               {% for products in item.products_l7ram %}
+                  {{ products['box'] }} 
+                  <hr class="ster_l7ram">
+               {% endfor %}
+             </td>
+             <td> Dh &nbsp {{ total }} </td>
              <td>
 
               {%  if item.statue is empty %}
@@ -289,7 +326,7 @@ a.edit_airf {
                     
 
 
-             <td>{{ item.cityID }} </td>
+             <td>{{ item.source }} </td>
 
 
             <td>

@@ -50,6 +50,7 @@ class ProductsController extends Controller{
              $dir         = $this->dir('products');
            //  dd($dir);
 
+           
 
             if(!empty($_FILES['ProductThumbnail']['name'])){
                 $uploader   = new \App\Helpers\Uploader('start');
@@ -69,13 +70,6 @@ class ProductsController extends Controller{
 
                 dd($image);
 
-
-
-
-
-
-
-
                 dd($dir);
                 */
                 $thumbnail   = $uploader->file($_FILES['ProductThumbnail'])->dir($dir)->save();
@@ -89,6 +83,14 @@ class ProductsController extends Controller{
             }else {
                 $gallery  = '';
             }
+
+
+            if(empty($post['name'])){
+                $this->flasherror('إسم المنتج فارغ');
+                return $response->withRedirect($this->router->pathFor('products.create'));
+            }            
+            
+            
     
             $content              = new Product;
             $content->thumbnail   =  $thumbnail;
@@ -114,16 +116,20 @@ class ProductsController extends Controller{
                     $product->save();
                 }
             }
-           
             
            if(empty($post['show_home'])){
                 $post['show_home'] = 'off';
             }
 
             $content->show_home       =  $post['show_home'];
-            
-            
-            
+
+
+            if($post['product_box'] == 'on'){
+                $content->size = "with_box";
+            }else{
+                $content->size = "no_box";
+            }
+
             
             $content->save();
               
@@ -169,8 +175,8 @@ class ProductsController extends Controller{
         
             // get the product id
             $id = rtrim($args['id'], '/');
-            $product = Product::find($id);
-
+            $product = Product::find($id);            
+            
             // show the edit page 
             if($request->getMethod() == 'GET'){ 
                 $categories = ProductCategories::all();  
@@ -227,11 +233,14 @@ class ProductsController extends Controller{
                     }
                 }
             }
-           
-            
-            
 
             $content->show_home       =  $post['show_home'];
+
+            if($post['product_box'] == 'on'){
+                $content->size = "with_box";
+            }else{
+                $content->size = "no_box";
+            }
 
             $content->save();
 
@@ -240,8 +249,6 @@ class ProductsController extends Controller{
             return $response->withRedirect($this->router->pathFor('products'));
             
         }
-        
-        
         
     }
 

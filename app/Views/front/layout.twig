@@ -1,81 +1,447 @@
-<!DOCTYPE html>
-<html dir="rtl" lang="ar_SA" data-type='okay_now'>
-
-  <head>
-      {{options.pixel|raw}}
-      {{options.stats|raw}}
+<!doctype html>
+<html class="no-js">
+   <head>
+      <!-- Basic page needs ================================================== -->
       <meta charset="utf-8">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1"/>
-      <meta name="theme-color" content="#FFF"/>
-      <meta name="msapplication-navbutton-color" content="#FFF"/>
-      <meta name="apple-mobile-web-app-capable" content="yes"/>
-      <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
-      <meta name="format-detection" content="telephone=no"/>
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <!-- Title and description ================================================== -->
       <title> {{ options.name }} </title>
       <meta property="og:title" content="{{ options.name }}" />
       <meta property="og:image" content="/uploads/media/{{ options.logo }}" />
-      <link rel="icon" type="image/png" href=""/>
-      <link href="/assets/front/css/style.css?v=44422" rel="stylesheet">
-      <link href="/assets/front/css/custom.css?v=1.03211321" rel="stylesheet">
-      <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300&display=swap" rel="stylesheet">
-      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" >
-      <link href="/assets/front/style.css" rel="stylesheet" />
-      <link href="/assets/front/owl.carousel.min.css" rel="stylesheet" />
-      
-      
+      <!-- Helpers ================================================== -->
+      <link rel="shortcut icon" type="image/jpg" href="/uploads/media/{{ options.logo }}"/>
+      <link rel="canonical" href="https://bychoukry.ma/">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta name="theme-color" content="#008e25">
+      <!-- CSS ================================================== -->
+      <link href="//cdn.shopify.com/s/files/1/0287/0666/8637/t/4/assets/timber.scss.css?v=14816183510200734204" rel="stylesheet" type="text/css" media="all" />
+      <link href="//cdn.shopify.com/s/files/1/0287/0666/8637/t/4/assets/theme.scss.css?v=1281676299586873249" rel="stylesheet" type="text/css" media="all" />
+      <script>
+         window.theme = window.theme || {};
+         
+         var theme = {
+           strings: {
+             addToCart: "Ajouter au panier",
+             soldOut: "Épuisé",
+             unavailable: "Non disponible",
+             zoomClose: "Fermer (Esc)",
+             zoomPrev: "Précédent (flèche gauche)",
+             zoomNext: "Suivant (flèche droite)",
+             addressError: "Vous ne trouvez pas cette adresse",
+             addressNoResults: "Aucun résultat pour cette adresse",
+             addressQueryLimit: "Vous avez dépassé la limite de Google utilisation de l'API. Envisager la mise à niveau à un \u003ca href=\"https:\/\/developers.google.com\/maps\/premium\/usage-limits\"\u003erégime spécial\u003c\/a\u003e.",
+             authError: "Il y avait un problème authentifier votre compte Google Maps API."
+           },
+           settings: {
+             // Adding some settings to allow the editor to update correctly when they are changed
+             enableWideLayout: false,
+             typeAccentTransform: true,
+             typeAccentSpacing: true,
+             baseFontSize: '16px',
+             headerBaseFontSize: '32px',
+             accentFontSize: '16px'
+           },
+           variables: {
+             mediaQueryMedium: 'screen and (max-width: 768px)',
+             bpSmall: false
+           },
+           moneyFormat: "{{amount}} dh"
+         }
+         
+         document.documentElement.className = document.documentElement.className.replace('no-js', 'supports-js');
+      </script>
+      <script src="//cdn.shopify.com/s/files/1/0287/0666/8637/t/4/assets/jquery-2.2.3.min.js?v=5821186314690718683" type="text/javascript"></script>
+      <script src="//cdn.shopify.com/s/files/1/0287/0666/8637/t/4/assets/lazysizes.min.js?v=15522312340271661705" async="async"></script>
       <style>
-          .lx-contact-us-content ul li a i {
-    top: 0px !important;
-    position: relative;
+         .logo__image-wrapper {
+         max-width: 500px;
+         }
+         /*================= If logo is above navigation ================== */
+         /*============ If logo is on the same line as navigation ============ */
+         @media screen and (min-width: 769px) {
+            .site-nav {
+            text-align: right!important;
+            }
+         }
+
+
+
+
+
+   /*************** Modal ****************/
+ .backdrop{
+  position: fixed;
+  display: none;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.7);
+  z-index: 1;
 }
 
-nav.topbar, button.button.single-submit, .section-I7upaLbva51pYIX2 .product-item .product-actions .button, .product-section.single-visitors b, .owl-nav button, .categories-list-section .owl-carousel .owl-nav button.owl-next, .categories-list-section .owl-carousel .owl-nav button.owl-prev, input.btn.btn-block.btn-submit, .owl-carousel .owl-nav button.owl-next, .owl-carousel .owl-nav button.owl-prev {
-    background: {{ options.color }} !important;
+.backdropActive{
+  display: block;
 }
 
-.section-I7upaLbva51pYIX2 .product-item .product-actions .button, .section-I7upaLbva51pYIX2 .product-item:hover, .section-I7upaLbva51pYIX2 .product-item:hover .product-details, .cmd_wrapper input, .section-I7upaLbva51pYIX2 .product-item:hover .product-details{
-    border-color: {{ options.color }} !important;
+.modalButton{
+  margin-top: 15px;
+  border-radius: 5px;
+  background-color: #333;
+  color: #fff;
+  width: 140px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  cursor: pointer;
 }
 
-span.currency, span.value, .breadcrumb .breadcrumb-list span, .single-description.fr-view strong span, a#close_cmd{
-    color: {{ options.color }} !important;
+.modal {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  height: 70%;
+  background-color: #fff;
+  box-shadow: 0 0 15px -5px rgba(0, 0, 0, 0.3);
+  transition: transform 0.4s;
+  transform: scale(0);
+  z-index: 2;
 }
+
+.modalActive {
+  transform: scale(1);
+}
+
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 35px;
+  color: #fff;
+  background-color: #333;
+}
+
+.modalHeaderTitle {
+  padding: 5px 15px;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.modalCloseButton {
+  position: relative;
+  width: 35px;
+  height: 100%;
+  display: block;
+  cursor: pointer;
+}
+
+.modalCloseButton:hover {
+  background-color: #f00612;
+}
+
+.modalCloseButton span {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  display: block;
+  width: 15px;
+  height: 2px;
+  background-color: #fff;
+}
+
+.modalCloseButton span:first-child {
+  transform: rotate(45deg);
+}
+
+.modalCloseButton span:last-child {
+  transform: rotate(-45deg);
+}
+
+.modalContent {
+  display: block;
+  height: 100%;
+  overflow-y: auto;
+  padding: 5px 15px;
+  line-height: 24px;
+}
+
+.modalContent::-webkit-scrollbar {
+  width: 5px;
+}
+
+.modalContent::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.modalContent::-webkit-scrollbar-thumb {
+  background: #555;
+}
+
+.modalContent::-webkit-scrollbar-thumb:hover {
+  background: #333;
+}
+
+
+
+form#savecommand {
+    margin-bottom: 0;
+    padding: 20px;
+}
+
+form#savecommand h1 {
+    text-align: center;
+}
+
+input.btn.btn-block.btn-submit {}
+
+form#savecommand input.btn.btn-block.btn-submit {
+    text-align: center;
+    margin: 0 20% auto;
+    width: 60%;
+}
+
+.modal {
+    height: 50%;
+}
+
+.backdrop {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.InputGroup {
+ display: flex;
+ width: 50%;
+}
+
+input[type="radio"] {
+  visibility: hidden;
+  height: 0; 
+  width: 0; 
+}
+
+label {
+  display: flex;
+  flex: auto;
+  vertical-align: middle;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  cursor: pointer;
+  background-color: var(--color-gray);
+  color: #008e25;
+  padding: 5px 10px;
+  /* border-radius: 6px; */
+  transition: color --transition-fast ease-out, 
+              background-color --transition-fast ease-in;
+  user-select: none;
+  margin-right: 8px;
+}
+
+label:last-of-type {
+ margin-right: 0;
+}
+
+span.cart__subtotal-title.InputGroup label {
+    background: white;
+    colr: #008e25;
+    border: 1px solid #008e25;
+}
+
+input[type="radio"]:checked + label {
+  background-color: #008e25;
+  color: white;
+}
+
+input[type="radio"]:hover:not(:checked) + label {
+ background-color: #008e25;
+ color: white; 
+}
+
+@media (max-width: 600px) and (min-width: 0px) {
+   .modal {
+      margin-right: 1%;
+      margin-left: 1%;
+      width: 98%;
+      height: 90%;
+   }
+
+   form#savecommand input.btn.btn-block.btn-submit {
+      width: 100%;
+      margin: 0;
+   }
+
+   form#savecommand label {
+      margin: 0;
+   }
+
+   .modalContent {
+      padding-right: 0;
+      padding-left: 0;
+   }
+}
+
+
+
 
       </style>
-  </head>
-  
-  
-  
-   
-   
-<body {% block bodyClass %}{% endblock %}>
-    
-
-      {{ include('front/elements/cmd_form.twig') }}
+   </head>
+   <body id="bychoukry" class="template-index">
 
 
-      <div id="app">
-
-              {{ include('front/elements/header.twig') }}
-
-              {% block content %}
-
-              {% endblock %}
-
-              {{ include('front/elements/feautres.twig') }}
-
-              {{ include('front/elements/footer.twig') }}
-
-              {{ include('front/elements/whatsup.twig') }}
+<div class="backdrop"></div>    
 
 
-    <script src="/assets/jquery.min.js"> </script>
-    <script src="/assets/main.min.js"> </script>
-    <script src="https://owlcarousel2.github.io/OwlCarousel2/assets/owlcarousel/owl.carousel.js"></script>
-    <script src="/assets/front/custom.js?qs"> </script>
-        <input type="hidden" id='laterDate' value="{{laterDate}}" />
+      {{ include('front/elements/nav.twig') }}
+      
+      <main class="wrapper main-content" role="main">
+         <div class="grid">
+            <div class="grid__item">
+               <!-- BEGIN content_for_index -->
+               {% block content %}
 
+               {% endblock %}
+               <!-- END content_for_index -->
+            </div>
+         </div>
+      </main>
+      <div id="shopify-section-footer" class="shopify-section">
+         {{ include('front/elements/footer.twig') }}
+      </div>
+
+      <script src="//cdn.shopify.com/shopifycloud/shopify/assets/themes_support/option_selection-fe6b72c2bbdd3369ac0bfefe8648e3c889efca213baefd4cfb0dd9363563831f.js" type="text/javascript"></script>
+      <script src="//cdn.shopify.com/s/files/1/0287/0666/8637/t/4/assets/theme.js?v=11152162681971085242" type="text/javascript"></script>
+      
+      <script>
+      $("#add-to-cart").click(function(){
+         const product = $(this).attr('data-product');
+         const color = $(this).attr('data-color');
+         const size = $(this).attr('data-size');
+         const price = $(this).attr('data-price');
+         const products_quantity = $("#products_quantity").val();
+         const box_product = $('#box_product').val();
+
+         const formData = new FormData();
+         formData.append('product', product);
+         formData.append('color', color);
+         formData.append('size', size);
+         formData.append('price', price);
+         formData.append('products_quantity', products_quantity);
+         formData.append('box_product', box_product);
+
+         $.ajax({
+            url: '/addToCart',
+            type : 'post',
+            processData: false, // important
+            contentType: false, // important
+            data: formData,
+            dataType: "JSON",
+            success: function( response ) {
+               window.location.href = "/cart";
+            }
+         });
+      });
+
+      $('#savecommand').submit(function(e) {
+         e.preventDefault();
+         e.stopPropagation();
+
+         var datastring = $(this).serialize();
+         //console.log(datastring);
+         //return false;
+         jQuery.ajax({
+            url: '/storeApi',
+            type : 'post',
+            data: datastring,
+            dataType: "html",
+            success: function( response ) {
+               console.log(response);
+               return false;
+               window.location.href = "/thank-you";
+            }
+         });
+
+         return false;
+      });
+
+
+      $('input[type=radio][name=casa_ola_bra_casa]').change(function() {
+         if (this.value == 'casa') {
+            $('.shipping-price').text('20');
+            $('.sub-total').text();
+            $total = parseInt($('.sub-total').text()) + 20;
+            $('.totaal').text($total);
+            $('.casa').val("casa");
+         }
+         else if (this.value == 'hors_casa') {
+            $('.shipping-price').text('45');
+            $('.sub-total').text();
+            $total = parseInt($('.sub-total').text()) + 45;
+            $('.totaal').text($total);
+            $('.casa').val("Hors casa");
+         }
+      });
+
+
+
+
+
+
+
+      $('input[type=radio][name=city]').change(function() {
+         if (this.value == 'casa') {
+            $('.shipping-price').text('20');
+            $('.sub-total').text();
+            $total = parseInt($('.sub-total').text()) + 20;
+            $('.totaal').text($total);
+            $('.casa').val("casa");
+         }
+         else if (this.value == 'hors_casa') {
+            $('.shipping-price').text('45');
+            $('.sub-total').text();
+            $total = parseInt($('.sub-total').text()) + 45;
+            $('.totaal').text($total);
+            $('.casa').val("Hors casa");
+         }
+      });
+
+      var price = parseFloat($('.current_p_price').text());
+      $('#box_product').change(function() {  
+         if ($(this).val() === 'Sans Boite') {
+            $('.current_p_price').text(price);
+         }
+         if ($(this).val() === 'Avec Boite') {
+            $('.current_p_price').text(price+50);
+         }
+      });
+
+      const modal = document.querySelector(".modal");
+      const modalButton = document.querySelector(".modalButton");
+      const modalCloseButton = document.querySelector(".modalCloseButton");
+      const backdrop = document.querySelector('.backdrop');
+
+      const toggleModal = (id) => {
+      if (id) {
+         const modal = document.querySelector(id);
+      }
+      modal.classList.toggle("modalActive");
+      backdrop.classList.toggle('backdropActive');
+      };
+
+      modalCloseButton.onclick = () => toggleModal();
+      backdrop.onclick = () => toggleModal();
+
+
+
+      </script>
    </body>
-   
 </html>

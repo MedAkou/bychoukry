@@ -15,8 +15,8 @@ class Paginator
     protected $currentPage;
     protected $urlPattern;
     protected $maxPagesToShow = 8;
-    public $previousText = 'السابق';
-    public $nextText = 'التالي' ;
+    public $previousText = '';
+    public $nextText = '' ;
 
     
     /**
@@ -284,7 +284,7 @@ class Paginator
             return '';
         }
 
-        $html = '<ul class="pagination">';
+        $html = '<ul class="pagination-custom">';
         if ($this->getPrevUrl()) {
             $html .= '<li><a href="' . htmlspecialchars($this->getPrevUrl()) . '">&laquo; '. $this->previousText .'</a></li>';
         }

@@ -2,7 +2,7 @@
 
 
 
-define('SCRIPTURL','http://merhba.net/');
+define('SCRIPTURL','http://bychoukry.takiddine.co/');
 define('SCRIPTDIR', BASEPATH.'/');
 
 

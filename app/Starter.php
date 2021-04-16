@@ -79,7 +79,12 @@ class Starter {
     protected $capsule;
 
     public function addAssetsToContainer ($container){
+        if (session_status() == PHP_SESSION_NONE) {
+            return session_start();
+          }
 
+          $cart_count = @$_SESSION['products_quantity'] > 0 ? ' ('. $_SESSION['products_quantity'].') ' : '';
+          
         $container['view']->getEnvironment()->addGlobal('assets', $container['conf']['url.assets']);
         $container['view']->getEnvironment()->addGlobal('config', $container['conf']['app']); 
         $container['view']->getEnvironment()->addGlobal('url', $container['conf']['url']); 
@@ -88,6 +93,7 @@ class Starter {
         $container['view']->getEnvironment()->addGlobal('ALLCATEGORIES', \App\Models\ProductCategories::all('id','name' ,'slug')); 
         $options = (new \App\Controllers\SettingsController($container))->getOptions();
         $container['view']->getEnvironment()->addGlobal('options', $options); 
+        $container['view']->getEnvironment()->addGlobal('count_cart', $cart_count ); 
 
     }
 

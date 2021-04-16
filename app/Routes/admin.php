@@ -10,6 +10,7 @@ use \App\Controllers\SettingsController as settings;
 use \App\Controllers\CartController as cart;
 use \App\Controllers\SliderController as slider;
 use \App\Controllers\ProductsCategoriesController as productscats;
+use Illuminate\Database\Capsule\Manager as Capsule;
 
 // security , disable direct access
 defined('BASEPATH') or exit('No direct script access allowed');
@@ -23,7 +24,10 @@ $app->get('[/]', Web::class.':index')->setName('website.index');
 $app->get('/product/{id}', Web::class.':product')->setName('website.product');
 $app->get('/thank-you', Web::class.':thankyou')->setName('website.thankyou');
 $app->get('/categories/{slug}', Web::class.':categories')->setName('website.categories');
-
+$app->get('/collections[/]', Web::class.':collections')->setName('website.collections');
+$app->get('/collections/all[/]', Web::class.':collections_all')->setName('website.collections_all');
+$app->get('/search', Web::class.':search')->setName('website.search');
+$app->post('/upload', Web::class.':upload')->setName('website.upload');
 
 
 
@@ -86,6 +90,7 @@ $app->group('/admin', function ($container) use($app) {
     $this->post('/settings', settings::class.':update')->setName('settings.update');
     $this->post('/profile', settings::class.':profile')->setName('settings.profile');
 
+
     // Products system
     $this->group('/products', function (){
         $this->get('[/]', 'Products:index')->setName('products');
@@ -101,38 +106,73 @@ $app->group('/admin', function ($container) use($app) {
 })->add( new App\Middleware\authMiddleware($container) );
 
 
-$app->post('/storeApi[/]', function ($request, $response, $args) {  
+$app->post('/storeApi[/]', function ($request, $response, $args) { 
 
-    $idproducts = explode(',', $_POST['idproducts']);
 
-    foreach($idproducts as $idproduct){
-        $data = [
-            'name'  =>  $_POST['fullname'] ,
-            'tel'  =>  $_POST['phone'] ,
-            'adress'  =>  $_POST['address'] ,
-            'city'  =>  $_POST['city'] ,
-            'quantity' => $_POST['quantity'],
-            'price' =>  $_POST['price'],
-            'source' => '',
-            'color' => $_POST['color'],
-            'size' =>  $_POST['size'],
-            'productID' => $idproduct,
-        ];
-    
-        \App\Models\NewOrders::create($data);
+    $source =  $_POST['casa'];
+    if(isset($_POST['db'])){
+        $source = $_POST['casa_ola_bra_casa'];
     }
+
+    $NewOrders = [
+        'name'  =>  $_POST['fullname'] ,
+        'tel'  =>  $_POST['phone'] ,
+        'adress'  =>  $_POST['address'] ,
+        'city'  =>  $_POST['city'] ,
+        'price' =>  '',
+        'source' => $source,
+        'color' => $_POST['color'],
+        'size' =>  $_POST['size'],
+    ];
+
+    $order = \App\Models\NewOrders::create($NewOrders);
+
+
+
+    $source =  $_POST['casa'];
+    if(!isset($_POST['db'])){
+     //   dd('ldldld')
+        $products = $_SESSION['product'];
+        //$products = array_keys($products);
+        foreach($products as $key => $product){
+            $OrderDetails[] = [
+                'order_id'  =>  $order['id'] ,
+                'product_id'  =>  $product ,
+                'quantity' => $_SESSION['quantity'][$key],
+                'price' => $_SESSION['sub_total'][$key],
+                'box' => $_SESSION['box_product'][$key] == 50 ? "Avec Boite" : "Sans Boite",
+            ];
+        }
+    }else {
+        $OrderDetails[] = [
+            'order_id'  =>  $order['id'] ,
+            'product_id'  => $_POST['product_id'] ,
+            'quantity' => $_POST['product_quantity'] ,
+            'price' => $_POST['price'],
+            'box' => "Sans Boite",
+        ];
+    }
+    
+    //dd($OrderDetails);
+
+    
+    Capsule::table('orderdetails')->insert($OrderDetails);
+    //\App\Models\OrderDetails::create($OrderDetails);
 
     unset($_SESSION["product"]);
     unset($_SESSION["color"]);
     unset($_SESSION["size"]);
     unset($_SESSION["price"]);
     unset($_SESSION['products_quantity']);
+    unset($_SESSION['quantity']);
+    unset($_SESSION['sub_total']);
     
 });
 
 $app->get('/cart[/]', cart::class.':index')->setName('cart');
 $app->post('/addToCart[/]', cart::class.':add');
 $app->post('/removeFromCart[/]', cart::class.':remove');
+$app->get('/cart/delete/{id}', cart::class.':delete')->setName('cart.delete');
 
 //   Middlewares
 $app->add( new flash($container) );

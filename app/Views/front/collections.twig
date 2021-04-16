@@ -1,0 +1,38 @@
+{% extends "front/layout.twig" %}
+{% block content %}
+
+<style>
+    .collection__grid-image {
+    max-width: 625px;
+    max-height: 625.0px;
+    }
+    .collection__grid-image-wrapper {
+    max-width: 625px;
+    }
+</style>
+
+<div id="shopify-section-list-collections-template" class="shopify-section">
+   <header class="section-header">
+      <h1 class="section-header__title">Collections</h1>
+   </header>
+   <div class="grid-uniform" >
+        {%  for ProductCategory in ProductCategories %}
+            <div class="grid__item small--one-whole medium--one-half post-large--one-half text-center">
+                <a href="/categories/{{ ProductCategory.slug }}" title="{{ ProductCategory.name }}" class="grid-link">
+                    <span class="grid-link__image grid-link__image--collection" style="height: 470px;">
+                    <span class="grid-link__image-centered">
+                        <div class="collection__grid-image-wrapper supports-js">
+                            <div style="padding-top:100.0%;">
+                                <img class="collection__grid-image" src="/uploads/categories/{{ProductCategory.image}}" >
+                            </div>
+                        </div>
+                    </span>
+                    </span>
+                    <p class="grid-link__title">{{ ProductCategory.name }}</p>
+                </a>
+            </div>
+        {% endfor %}
+   </div>
+</div>
+
+{% endblock %}

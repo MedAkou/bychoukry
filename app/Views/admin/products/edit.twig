@@ -59,7 +59,16 @@ li.thumbnail-item img {
                                     <input type="text" class="form-control" name="price" value="{{product.price}}">
                                 </div>
                             </div>
+
                             <div class="form-group">
+                                <label class="control-label col-lg-2"> تفعيل العلبة  </label>
+                                <div class="col-lg-10">
+                                    <input type="checkbox" class="form-control" name="product_box" {% if product.size == 'with_box' %}checked="checked" {% endif %}>
+                                </div>
+                            </div>
+
+                            
+                            <div class="form-group hidden">
                                 <label class="control-label col-lg-2"> {{l.productsCreate.265}}</label>
                                 <div class="col-lg-10">
                                     <input type="text" class="form-control" name="discount" value="{{ product.discount }}">
@@ -70,7 +79,7 @@ li.thumbnail-item img {
                                      
                             
                                
-                            <div class="form-group">
+                            <div class="form-group hidden">
                                 <label class="control-label col-lg-2">سعر المنتوج الثاني ، اختياري</label>
                                 <div class="col-lg-10">
                                     <input type="text" class="form-control" name="price_2" value="{{ product.price_2 }}">
@@ -82,7 +91,7 @@ li.thumbnail-item img {
                             
                           
 
-                            <div class="form-group">
+                            <div class="form-group hidden">
                                 <label class="control-label col-lg-2"> إظهار في الرئيسية  </label>
                                 <div class="col-lg-10">
                                     <input type="checkbox" class="form-control" name="show_home" {% if product.show_home == 'on' %}checked="checked" {% endif %}>
@@ -90,7 +99,7 @@ li.thumbnail-item img {
                             </div>
                             
                             
-                                <div class="form-group">
+                                <div class="form-group hidden">
                                 <label class="control-label col-lg-2"> اللون    </label>
                                 <div class="col-lg-10">
                                     <input type="checkbox" class="form-control" name="color"  {% if product.color == 'on' %}checked="checked" {% endif %}>
@@ -99,7 +108,7 @@ li.thumbnail-item img {
                             
                                
                                  
-                             <div class="form-group">
+                             <div class="form-group hidden">
                                 <label class="control-label col-lg-2">  المقاس  </label>
                                 <div class="col-lg-10">
                                     <input type="checkbox" class="form-control" name="size" {% if product.size == 'on' %}checked="checked" {% endif %}>
@@ -135,7 +144,7 @@ li.thumbnail-item img {
     </div>
     
     
-     <div class="panel panel-white">
+     <div class="panel panel-white hidden">
         <div class="panel-heading">
         {{l.productsCreate.269}}
         </div>
@@ -144,13 +153,12 @@ li.thumbnail-item img {
 
 <label for="galleryImages" class="btn btn-danger btn-rounded"><i class="icon-image2 position-left"></i> اختيار الصور  </label>
 <input name="galleryImages[]" id="galleryImages" accept="image/jpg, image/jpeg, image/png" style="visibility:hidden;" type="file" multiple />
-
          
            {% for item in product.galleryimages %}
-                                <li class="thumbnail-item" >
-                                    <img src="{{url.products}}{{item}}" />
-                                </li>
-                                {% endfor %}
+                    <li class="thumbnail-item" >
+                        <img src="" />
+                    </li>
+            {% endfor %}        
          
          
          

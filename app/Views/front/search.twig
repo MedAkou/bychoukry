@@ -1,0 +1,56 @@
+{% extends "front/layout.twig" %}
+{% block content %}
+
+<div class="section-header section-header--large">
+{% if products is empty and search is not empty %}
+    <h1 class="section-header__title h2">Votre recherche pour "{{ search }}" n'a pas généré de résultats.</h1>
+{% elseif products is not empty %}
+    <h1 class="section-header__title h2">Votre recherche pour "{{ search }}" a généré les résultats suivants:</h1>
+{% else %}
+    <h1 class="section-header__title h2">Effectuez une recherche</h1>    
+{% endif %}
+</div>
+<form action="/search" method="get" class="input-group search-bar" role="search">
+    <input type="search" name="q" value="{{ search }}" placeholder="Rechercher" class="input-group-field" aria-label="Rechercher">
+    <span class="input-group-btn">
+    <button type="submit" class="btn btn--search icon-fallback-text">
+    <span class="icon icon-search" aria-hidden="true"></span>
+    <span class="fallback-text">Recherche</span>
+    </button>
+    </span>
+</form>
+
+
+{%  for product in products %}
+<hr>
+<div class="grid">
+   <div class="grid__item one-fifth">
+      <a href="{{ path_for('website.product',{ id : product.id}) }}" title="{{ product.name }}">
+         <style>
+            .search__image {
+            max-width: 170px;
+            max-height: 170.0px;
+            }
+            .search__image-wrapper {
+            max-width: 170px;
+            }
+         </style>
+         <div class="search__image-wrapper supports-js">
+            <div style="padding-top:100.0%;">
+               <img class="search__image" sizes="170px" src="{{ url.products }}{{product.thumbnail}}">
+            </div>
+         </div>
+      </a>
+   </div>
+   <div class="grid__item four-fifths ">
+      <h2 class="h3"><a href="{{ path_for('website.product',{ id : product.id}) }}" title="">{{ product.name }}</a></h2>
+      <span class="visually-hidden">Prix régulier</span>
+      <span itemprop="price">
+      {{ product.price }} dh
+      </span>
+      <p> {{ product.description|striptags('<b>')|raw|slice(0,150) }} ... </p>
+   </div>
+</div>
+{% endfor %}
+
+{% endblock %}

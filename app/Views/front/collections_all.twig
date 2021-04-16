@@ -1,0 +1,64 @@
+{% extends "front/layout.twig" %}
+{% block content %}
+
+<style>
+    .product__img lazyautosizes {
+    max-width: 335px;
+    max-height: 335.0px;
+    }
+    .product__img-wrapper {
+    max-width: 335px;
+    }
+</style>
+
+<div id="shopify-section-collection-template" class="shopify-section">
+   <div id="CollectionSection" >
+      <div class="section-header section-header--breadcrumb">
+         <nav class="breadcrumb" role="navigation" aria-label="breadcrumbs">
+            <a href="/" title="Retour à la page d'accueil">Accueil</a>
+            <span aria-hidden="true" class="breadcrumb__sep">›</span>
+            <span>Produits</span>
+         </nav>
+      </div>
+      <header class="section-header section-header--large">
+         <h1 class="section-header__title section-header__title--left">Produits</h1>
+      </header>
+            
+      <div class="grid-uniform grid-link__container">
+         {% for product in products %}
+         <div class="grid__item wide--one-fifth large--one-quarter medium-down--one-half">
+            <div class="">
+               <a href="{{ path_for('website.product',{ id : product.id}) }}" class="grid-link text-center">
+                  <span class="grid-link__image grid-link__image-sold-out grid-link__image--product" style="height: 220px;">
+                     <span class="grid-link__image-centered">
+                        <div class="product__img-wrapper supports-js">
+                           <div style="padding-top:100.0%;">
+                              <img src="{{ url.products }}{{product.thumbnail}}" alt="{{ product.name }}" class="product__img lazyautosizes ls-is-cached lazyloaded" >
+                           </div>
+                        </div>
+                     </span>
+                  </span>
+                  <p class="grid-link__title">{{ product.name }}</p>
+                  <p class="grid-link__meta">
+                     <span class="visually-hidden">Prix régulier</span>
+                     {{ product.price }} DH
+                  </p>
+               </a>
+            </div>
+         </div>
+         {% endfor %}
+      </div>      
+
+   </div>
+</div>
+
+
+<div class="text-center">
+
+
+<center>{{p|raw}}</center>
+
+</div>
+
+
+{% endblock %}

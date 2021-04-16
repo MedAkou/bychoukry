@@ -3,43 +3,162 @@
 class='product-single'
 {% endblock %}
 {% block content %}
-<div class="breadcrumb" style="margin-bottom: 74px;">
-   <div class="container">
-      <ul class="list-unstyled breadcrumb-list">
-         <a href="/"><i class="fa fa-home" aria-hidden="true"></i>
-         </a> 
-         <li><span style="padding-right:10px;">{{product.name}}</span></li>
-      </ul>
+<style>
+   .cart__image {
+   max-width: 210px;
+   max-height: 210.0px;
+   }
+   .cart__image-wrapper {
+   max-width: 210px;
+   }
+
+
+
+  
+
+</style>
+
+
+
+<div id="infoModal" class="modal">
+  <div class="modalHeader">
+    <div class="modalHeaderTitle">ByChoukry</div>
+    <div class="modalCloseButton">
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+  <div class="modalContent">
+    <input type="hidden" id='laterDate' value="{{laterDate}}" />
+      <form action="#" method="post" id="savecommand">
+         <h1>Coordonnées</h1>
+         <div class="alert" id='phoneAlert' style='display: none;'>المرجوا ادخال رقم هاتف صحيح</div>
+         <label><input type="text" name="fullname" placeholder="Nom complet"></label>
+         <label><input type="text" name="phone" placeholder="Téléphone"></label>
+         <label><input type="text" name="city" placeholder="Ville"></label>
+         <label><input type="text" name="address" placeholder="Adresse"></label>
+         <input type="hidden" name="casa" class="casa" value="casa">
+         <input type="submit" class="btn btn-block btn-submit" value="Continuer vers l'expédition" />
+         <div class="message_alert"></div>
+      </form>
+  </div>
+</div>
+
+{% if products is empty %}
+
+<div id="shopify-section-cart-template" class="shopify-section">
+   <div id="CartSection" data-section-id="cart-template" data-section-type="cart-template" data-notes-enable="false">
+      <h2>Panier</h2>
+      <p class="cart--empty-message">Votre panier est vide.</p>
+      <div class="cart--cookie-message">
+         <p>Activer les cookies pour utiliser le panier</p>
+      </div>
+      <p class="cart__continue-btn"><a href="{{ path_for('website.collections_all') }}">Retourner vers la boutique</a>.</p>
    </div>
 </div>
-<div id="app">
-<main class="page-wrapper">
-   <div class="container">
-        <table class="cart-table">
-            <thead>
-                <th>المنتوج</th>
-                <th>القياس</th>
-                <th>اللون</th>
-                <th>الثمن</th>
-                <th></th>
-            </thead>
-            <tbody>
-                {% for index, product in products %}
-                    <tr id="row-{{index}}">
-                        <td>{{ prod_names[index] }}</td>
-                        <td>{{ sizes[index] != 0 ? sizes[index] : '----' }}</td>
-                        <td>{{ colors[index] != 0 ? colors[index] : '----' }}</td>
-                        <td>{{ prices[index] }} د.م.</td>
-                        <td><span class="remove-from-cart" data-product="{{ index }}">حذف</span></td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        <div class="product-section add-to-cart-section" style="margin-top: 20px;">
-            <button type="button" data-sizes="{{data['sizes']}}" data-colors="{{data['colors']}}"  data-products="{{data['products']}}" class="button single-submit">
-            أطلب الآن
-            </button>
-        </div>
+
+{% else %}
+
+<div id="shopify-section-cart-template" class="shopify-section">
+   <div id="CartSection" data-section-id="cart-template" data-section-type="cart-template" data-notes-enable="false">
+      <form action="" method="post" novalidate="" class="cart">
+         <div class="section-header">
+            <h1 class="section-header__title">Panier</h1>
+         </div>
+         <div class="cart__row medium-down--hide cart__header-labels">
+            <div class="grid--full">
+               <div class="grid__item post-large--one-half push--post-large--one-half">
+                  <div class="grid--full">
+                     <div class="grid__item one-half medium-down--one-third text-right">
+                        <span class="h4">Prix</span>
+                     </div>
+                     <div class="grid__item one-quarter medium-down--one-third post-large--text-right">
+                        <span class="h4">Quantité</span>
+                     </div>
+                     <div class="grid__item one-quarter medium-down--one-third text-right">
+                        <span class="h4">Total</span>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="cart__row">
+            {% for index, product in products %}
+               <div class="grid--full cart__row--table-large">
+                  <div class="grid__item post-large--one-half">
+                     <div class="grid">
+                        <div class="grid__item one-third">
+                           <a href="{{ path_for('website.product',{ id : prod_names[index]['id']}) }}">
+                              <div class="cart__image-wrapper supports-js">
+                                 <div style="padding-top:100.0%;">
+                                    <img class="cart__image lazyautosizes lazyloaded" src="{{url.products}}{{ prod_names[index]['thumbnail'] }}">
+                                 </div>
+                              </div>
+                           </a>
+                        </div>
+                        <div class="grid__item two-thirds">
+                           <a href="{{ path_for('website.product',{ id : prod_names[index]['id']}) }}" class="h5 cart__product-title">
+                           {{ prod_names[index]['name'] }}
+                           </a>
+                           <a href="{{ path_for('cart.delete',{ id : prod_names[index]['id']}) }}" class="cart__remove">
+                           <small>Supprimer</small>
+                           </a>
+                        </div>
+                     </div>
+                  </div>
+
+                  <div class="grid__item post-large--one-half">
+                     <div class="grid--full cart__row--table-large">
+                        <div class="grid__item one-half one-half medium-down--one-third post-large--text-right">
+                           <span class="cart__mini-labels">Prix</span><span class="h5">{{ prices[index] }} Dh</span>
+                        </div>
+                        <div class="grid__item one-quarter one-half medium-down--one-third text-center">                        
+                           <input type="number" class="cart__quantity-selector" name="updates[]" value="{{ quantity[index] }}" min="0" aria-label="Quantité">
+                        </div>
+                        <div class="grid__item one-quarter one-half medium-down--one-third text-right">
+                           <span class="cart__mini-labels">Total</span><span class="h5">{{ sub_total[index] }} Dh</span>
+                        </div>
+                        <div class="grid__item text-center post-large--hide"></div>
+                     </div>
+                  </div>
+               </div>
+            {% endfor %}
+         </div>
+
+         <div class="cart__row">
+            <div class="grid">
+               <div class="grid__item text-right">
+                  <p class="cart__subtotal">
+                     <span class="cart__subtotal-title InputGroup">
+                           <input type="radio" name="city" id="casa" value="casa" checked="checked"/>
+                           <label for="casa">Casa</label>
+
+                           <input type="radio" name="city" id="hors_casa" value="hors_casa" />
+                           <label for="hors_casa">Hors Casa</label>
+                     </span>
+                  </p>
+                  <p class="cart__subtotal"><span class="cart__subtotal-title">Expédition</span>
+                     <span class="h5 cart__subtotal-price"> <span class="shipping-price">20</span> Dh</span>
+                  </p>
+                  <p class="cart__subtotal"><span class="cart__subtotal-title">Sous-total</span>
+                     <span class="h5 cart__subtotal-price"> <span class="sub-total"> {{ total_price }} </span> Dh</span>
+                  </p>
+                  <p class="cart__subtotal"><span class="cart__subtotal-title">total</span>
+                     <span class="h5 cart__subtotal-price"> <span class="totaal"> {{ total_price + 20 }} </span> Dh</span>
+                  </p>
+                  <p class="cart__policies"><em>Taxes et frais de port calculés à la caisse
+                     </em>
+                  </p>
+                  <a class="btn btn--secondary" href="{{ path_for('website.collections_all') }}">Continuer vos achats</a>
+                  <button type="button" onclick="toggleModal('#infoModal')" name="checkout" class="btn">Procéder au paiement</button>
+               </div>
+            </div>
+         </div>
+      </form>
    </div>
-</main>
+</div>
+
+
+{% endif %}
+
 {% endblock %}

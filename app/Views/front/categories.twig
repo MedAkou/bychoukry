@@ -1,54 +1,62 @@
 {% extends "front/layout.twig" %}
-
-
-
-
-
 {% block content %}
 
-	   <main class="page-wrapper">
-          
-            <section class="section products-list-section section-I7upaLbva51pYIX2">
-               <div class="container">
-                  <div class="app-heading">
-                     <h3 class="heading-primary">  </h3>
-                     <p class="heading-description"></p>
-                  </div>
-                  <div class="products-grid">
+<style>
+   .product__img {
+   max-width: 335px;
+   max-height: 335.0px;
+   }
+   .product__img-wrapper {
+   max-width: 335px;
+   }
+</style>
 
-
-                     {%  for product in products %}
-                     <div class="product-item">
-                        <a class="product-thumbnail" href="{{ path_for('website.product',{ id : product.id}) }}">
-                        <img src="{{ url.products }}{{product.thumbnail}}">
-                        </a>
-                        <div class="product-details">
-                           <div class="product-info">
-                              <h3 class="product-title">
-                                 <a href="{{ path_for('website.product',{ id : product.id}) }}">{{ product.name }}</a>
-                              </h3>
-                              <div class="product-price">
-                                 <span class="currency-value before">
-                                 <span class="value">{{ product.price }}</span><span class="currency">&nbsp;د.م.‏</span>
-                                 </span>
-                                 <span class="currency-value after">
-                                 <span class="value">{{ product.discount }}</span><span class="currency">&nbsp;د.م.‏</span>
-                                 </span>
-                              </div>
-                           </div>
-                           <div class="product-actions">
-                              <a class="button small-button secondary-button" href="{{ path_for('website.product',{ id : product.id}) }}">
-                              أطلب الآن
-                              </a>
+<div class="shopify-section">
+   <div id="CollectionSection" data-section-id="collection-template" data-section-type="collection-template" data-sort-enabled="true" data-tags-enabled="true">
+      <div class="section-header section-header--breadcrumb">
+         <nav class="breadcrumb" role="navigation" aria-label="breadcrumbs">
+            <a href="/" title="Retour à la page d'accueil">Accueil</a>
+            <span aria-hidden="true" class="breadcrumb__sep">›</span>
+            <span>{{ current_categorie }}</span>
+         </nav>
+      </div>
+      <header class="section-header section-header--large">
+         <h1 class="section-header__title section-header__title--left">{{ current_categorie }}</h1>
+      </header>
+      
+      <div class="grid-uniform grid-link__container">
+      {%  for product in products %}
+         <div class="grid__item wide--one-fifth large--one-quarter medium-down--one-half">
+            <div class="">
+               <a href="{{ path_for('website.product',{ id : product.id}) }}" class="grid-link text-center">
+                  <span class="grid-link__image grid-link__image-sold-out grid-link__image--product" data-image-wrapper="" style="height: 220px;">
+                     <span class="grid-link__image-centered">
+                        <div class="product__img-wrapper supports-js">
+                           <div style="padding-top:100.0%;">
+                              <img class="product__img"  src="{{ url.products }}{{product.thumbnail}}">
                            </div>
                         </div>
-                     </div>
-                     {% endfor %}
-                  </div>
-               </div>
-            </section>
-           
-         </main>
-         <!-- App footer -->
+                     </span>
+                  </span>
+                  <p class="grid-link__title">{{ product.name }}</p>
+                  <p class="grid-link__meta">
+                     <span class="visually-hidden">Prix régulier</span>
+                     {{ product.price }} dh
+                  </p>
+               </a>
+            </div>
+         </div>
+         {% endfor %}      
+      </div>      
+   </div>
+</div>
+
+<div class="text-center">
+
+
+<center>{{p|raw}}</center>
+
+</div>
+
 {% endblock %}  
             

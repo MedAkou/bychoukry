@@ -33,17 +33,25 @@
                                    <textarea rows="5" name="description" id='posteditor' class="form-control" >{{ old.price }}</textarea>
                                 </div>
                             </div>
+
                             <div class="form-group">
                                 <label class="control-label col-lg-2">{{l.productsCreate.264}}</label>
                                 <div class="col-lg-10">
                                     <input type="text" class="form-control" name="price" value="{{ old.price }}">
                                 </div>
                             </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-lg-2">  تفعيل العلبة  </label>
+                                <div class="col-lg-10">
+                                    <input type="checkbox" class="form-control" name="product_box" >
+                                </div>
+                            </div>
                          
                             
                             
                             
-                            <div class="form-group">
+                            <div class="form-group hidden">
                                 <label class="control-label col-lg-2"> {{l.productsCreate.265}}</label>
                                 <div class="col-lg-10">
                                     <input type="text" class="form-control" name="discount" value="{{ old.discount }}">
@@ -53,7 +61,7 @@
                             
                             
                                
-                            <div class="form-group">
+                            <div class="form-group hidden">
                                 <label class="control-label col-lg-2">سعر المنتوج الثاني ، اختياري</label>
                                 <div class="col-lg-10">
                                     <input type="text" class="form-control" name="price_2" value="{{ old.price }}">
@@ -61,7 +69,7 @@
                             </div>
                             
                          
-                             <div class="form-group">
+                             <div class="form-group hidden">
                                 <label class="control-label col-lg-2"> إظهار في الرئيسية  </label>
                                 <div class="col-lg-10">
                                     <input type="checkbox" class="form-control" name="show_home" >
@@ -69,7 +77,7 @@
                             </div>
                             
                                
-                             <div class="form-group">
+                             <div class="form-group hidden">
                                 <label class="control-label col-lg-2"> اللون    </label>
                                 <div class="col-lg-10">
                                     <input type="checkbox" class="form-control" name="color" >
@@ -78,7 +86,7 @@
                             
                                
                                  
-                             <div class="form-group">
+                             <div class="form-group hidden">
                                 <label class="control-label col-lg-2">  المقاس  </label>
                                 <div class="col-lg-10">
                                     <input type="checkbox" class="form-control" name="size" >
@@ -112,7 +120,7 @@
     </div>
     
     
-     <div class="panel panel-white">
+     <div class="panel panel-white hidden">
         <div class="panel-heading">
         {{l.productsCreate.269}}
         </div>

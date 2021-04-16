@@ -6,6 +6,7 @@ use \Psr\Http\Message\ResponseInterface as Response;
 use \App\Models\{User , Charges, product , ProductCategories , Slider ,Options};
 use \Carbon\Carbon;
 use Illuminate\Database\Capsule\Manager as Capsule;
+use \App\Helpers\Paginator;
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
@@ -22,7 +23,7 @@ class WebController extends Controller {
             $products = Product::where('name','Like','%'.$search.'%')->orWhere('name','Like','%'.$search.'%')
             ->orderBy('created_at','DESC')->get()->toArray();
         }else {
-           $products = Product::orderBy('created_at','DESC')->get()->toArray(); 
+           $products = Product::orderBy('created_at','DESC')->get()->toArray();
         }
 
         $sliders = Slider::all()->toArray();
@@ -30,9 +31,37 @@ class WebController extends Controller {
         $pinnedproducts = Product::where('show_home','on')->first();
         $products_quantity = $_SESSION['products_quantity'] ?? 0;
         $view = 'front/index.twig';
-                $laterDate = (new \DateTime('tomorrow + 2 days'))->format('Y-m-d');
+        $laterDate = (new \DateTime('tomorrow + 2 days'))->format('Y-m-d');
 
         return $this->view->render($response,$view,compact('products','sliders','ProductCategories','pinnedproducts','laterDate', 'products_quantity'));
+    }
+
+    public function collections_all($request,$response,$args){
+        $model          = new Product();
+        $count          = $model->count();         
+        $page           = ($request->getParam('page', 0) > 0) ? $request->getParam('page') : 1;
+        $limit          = 20; 
+        $lastpage       = (ceil($count / $limit) == 0 ? 1 : ceil($count / $limit));   
+        $skip           = ($page - 1) * $limit;
+        $products         = $model->skip($skip)->take($limit)->orderBy('created_at', 'desc')->get();
+        $urlPattern     = "?page=(:num)";
+        $p = new Paginator($count, $limit, $page, $urlPattern);        
+
+        //$products = Product::orderBy('created_at','DESC')->get()->toArray();
+        $view = 'front/collections_all.twig';
+
+        return $this->view->render($response,$view,compact('products','p'));
+    }
+
+    public function search($request,$response,$args){
+        $search = $_GET['q'];
+        if(!empty($search)){
+            $products = Product::where('name','Like','%'.$search.'%')->orWhere('name','Like','%'.$search.'%')
+            ->orderBy('created_at','DESC')->get()->toArray();
+        }
+
+        $view = 'front/search.twig';
+        return $this->view->render($response,$view,compact('products','search'));
     }
     
     
@@ -40,18 +69,34 @@ class WebController extends Controller {
         
         $category = ProductCategories::where('slug',$args['slug'])->first();
         
-        
-        $current_categorie = $args['slug'];
+        $current_categorie = $category->name;
         
         
         if($category) {
-            $products = $category->products()->get()->toArray();
+            $model          = new Product();
+            $count          = $model->where('categoryID',$category->id)->count();         
+            $page           = ($request->getParam('page', 0) > 0) ? $request->getParam('page') : 1;
+            $limit          = 20; 
+            $lastpage       = (ceil($count / $limit) == 0 ? 1 : ceil($count / $limit));   
+            $skip           = ($page - 1) * $limit;
+            $products         = $model->where('categoryID',$category->id)->skip($skip)->take($limit)->orderBy('created_at', 'desc')->get()->toArray();
+            $urlPattern     = "?page=(:num)";
+            $p = new Paginator($count, $limit, $page, $urlPattern);  
+
         }else {
-           $products = Product::all()->toArray();  
+            $model          = new Product();
+            $count          = $model->count();         
+            $page           = ($request->getParam('page', 0) > 0) ? $request->getParam('page') : 1;
+            $limit          = 20; 
+            $lastpage       = (ceil($count / $limit) == 0 ? 1 : ceil($count / $limit));   
+            $skip           = ($page - 1) * $limit;
+            $products         = $model->skip($skip)->take($limit)->orderBy('created_at', 'desc')->get()->toArray();
+            $urlPattern     = "?page=(:num)";
+            $p = new Paginator($count, $limit, $page, $urlPattern);        
         }
     
         $view = 'front/categories.twig';
-        return $this->view->render($response,$view,compact('products','current_categorie'));
+        return $this->view->render($response,$view,compact('products','current_categorie','p'));
         
         
     }
@@ -83,6 +128,13 @@ class WebController extends Controller {
         
         $view = 'front/thankyou.twig';
         return $this->view->render($response,$view,compact('current_categorie'));
+    }
+    
+    public function collections($request,$response,$args){
+        $ProductCategories = ProductCategories::where('active','1')->get()->toArray();
+
+        $view = 'front/collections.twig';
+        return $this->view->render($response,$view,compact('ProductCategories'));
     }
     
     
@@ -145,6 +197,55 @@ class WebController extends Controller {
        
       return  $response->withRedirect($this->router->pathFor('pixels'));
     }
+
+
+
+
+
+    public function upload($request, $response){        
+
+        $path =  SCRIPTDIR.'public/uploads/';
+        if(!isset($_FILES['excel'])){
+            return 'المرجوا اضافة الملف';
+        }
+
+        //dd($path);
+        
+        $uploader = new \App\Helpers\Uploader2("upload");
+        $file = $_FILES['excel'];        
+        $uploader->file = $file;
+        $uploader->path = $path;
+        $name = $uploader->save();
+        $ext = strtolower(last(explode('.', $file['name'])));
+        $csv = $uploader->path.$name;
+        
+        $xlsx = \App\Helpers\SimpleXLSX::parse($csv);
+        $orders = $xlsx->rows();
+        unset($orders[0]);
+        
+        
+        $alldata = [];
+        foreach ($orders as $order) {
+            if(array_filter($order) and $order[0] != ""){
+                $thumbnail = str_replace('https://cdn.shopify.com/s/files/1/0287/0666/8637/products/','',@$order[30]);
+                $thumbnail = reset(explode('?v=',$thumbnail));
+            $item = [
+                'name'=>@$order[1],
+                'price'=>@$order[9],
+                'description'=> @$order[2],
+                'thumbnail'=>$thumbnail,
+                'size'=> @$order[9] == 'Sans Boite' ? 'with_box' : 'no_box',
+                'categoryID'=>11,
+            ];
+            
+            $alldata[] = $item;
+                }
+            }        
+
+        Capsule::table('products')->insert($alldata);
+        
+        dd("10 vitess");
+        }
 
 
 
